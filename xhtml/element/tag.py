@@ -11,7 +11,7 @@ from ..attribute import __project__
 from .attr import Args
 from .attr import Arguments
 from .attr import Attr
-from .attr import StyleCSS
+from .css import StyleCSS
 
 
 class Attrs(Args):

@@ -1,7 +1,7 @@
 # coding:utf-8
 
 from .attr import Attr  # noqa:F401
-from .attr import StyleCSS  # noqa:F401
+from .css import StyleCSS  # noqa:F401
 from .doc import HtmlDoc  # noqa:F401
 from .tag import Body  # noqa:F401
 from .tag import Br  # noqa:F401
