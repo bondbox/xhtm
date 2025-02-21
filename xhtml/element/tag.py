@@ -266,14 +266,14 @@ class Input(EmptyTag):
 class Span(TextTag):
     T = "span"
 
-    def __init__(self, text: str, attrs: Arguments = {}):
+    def __init__(self, text: str = "", attrs: Arguments = {}):
         super().__init__(self.T, text, attrs=attrs)
 
 
 class Title(TextTag):
     T = "title"
 
-    def __init__(self, text: str):
+    def __init__(self, text: str = ""):
         super().__init__(self.T, text)
 
 
