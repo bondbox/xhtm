@@ -34,4 +34,5 @@ setup(
                   "Bug Tracker": __urlbugs__,
                   "Documentation": __urldocs__},
     packages=find_packages(include=["xhtml*"], exclude=["unittest"]),
+    package_data={"xhtml.resource": ["*.ico", "*.svg"]},
     install_requires=all_requirements())
