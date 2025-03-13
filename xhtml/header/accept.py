@@ -61,6 +61,8 @@ class AcceptLanguage():
         languages: List[str] = []
         languageq: List[LanguageQ] = []
         substring: List[str] = language.split(";q=")
+        if len(substring) <= 1:
+            return [LanguageQ(language, 1.0)]
         languages.append(substring.pop(0))
         while len(substring) > 1:
             languages.extend(substring.pop(0).split(",", 1))
