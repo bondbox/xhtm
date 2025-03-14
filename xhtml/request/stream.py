@@ -13,6 +13,7 @@ class StreamResponse():
     def response(self) -> Response:
         return self.__response
 
-    def generate_content(self):
+    @property
+    def generator(self):
         for chunk in self.response.iter_content(chunk_size=self.CHUNK_SIZE):
             yield chunk
