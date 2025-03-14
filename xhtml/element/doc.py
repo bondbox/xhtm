@@ -1,6 +1,6 @@
 # coding:utf-8
 
-from .tag import Html
+from xhtml.element.tag import Html
 
 
 class HtmlDoc(Html):

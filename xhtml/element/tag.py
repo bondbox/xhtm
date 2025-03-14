@@ -6,12 +6,12 @@ from typing import List
 from typing import Optional
 from typing import TypeVar
 
-from ..attribute import __description__
-from ..attribute import __project__
-from .attr import Args
-from .attr import Arguments
-from .attr import Attr
-from .css import StyleCSS
+from xhtml.attribute import __description__
+from xhtml.attribute import __project__
+from xhtml.element.attr import Args
+from xhtml.element.attr import Arguments
+from xhtml.element.attr import Attr
+from xhtml.element.css import StyleCSS
 
 
 class Attrs(Args):

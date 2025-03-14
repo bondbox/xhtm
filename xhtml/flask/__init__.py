@@ -1,3 +1,3 @@
 # coding:utf-8
 
-from .proxy import FlaskProxy  # noqa:F401
+from xhtml.flask.proxy import FlaskProxy  # noqa:F401

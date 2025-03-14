@@ -1,8 +1,8 @@
 # coding:utf-8
 
-from .attr import Args
-from .attr import Arguments
-from .attr import Attr
+from xhtml.element.attr import Args
+from xhtml.element.attr import Arguments
+from xhtml.element.attr import Attr
 
 
 class StyleCSS(Attr):
