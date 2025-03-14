@@ -7,4 +7,5 @@ from .header import LanguageQ  # noqa:F401
 from .request import StreamResponse  # noqa:F401
 from .resource import FileResource  # noqa:F401
 from .resource import Resource  # noqa:F401
+from .template import LocaleTemplate  # noqa:F401
 from .template import Template  # noqa:F401
