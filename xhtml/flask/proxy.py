@@ -44,6 +44,7 @@ class FlaskProxy():
             if request.method == "GET":
                 response = requests.get(
                     url=target_url,
+                    data=request.data,
                     headers=request.headers,
                     cookies=request.cookies,
                     stream=True
