@@ -26,15 +26,38 @@ class FlaskProxy():
     @classmethod
     def forward(cls, sr: StreamResponse) -> Response:
         headers = [(k, v) for k, v in sr.response.raw.headers.items() if k.lower() not in cls.EXCLUDED_HEADERS]  # noqa:E501
-        return Response(stream_with_context(sr.generator), sr.response.status_code, headers)  # noqa:E501
+        response = Response(stream_with_context(sr.generator), sr.response.status_code, headers)  # noqa:E501
+        for cookie in sr.response.cookies:
+            response.set_cookie(
+                key=cookie.name,
+                value=cookie.value or "",
+                expires=cookie.expires,
+                path=cookie.path,
+                domain=cookie.domain,
+                secure=cookie.secure
+            )
+        return response
 
     def request(self, request: Request) -> Response:
         try:
             target_url: str = self.urljoin(request.path.lstrip("/"))
             if request.method == "GET":
-                return self.forward(StreamResponse(requests.get(target_url, headers=request.headers, stream=True)))  # noqa:E501
+                response = requests.get(
+                    url=target_url,
+                    headers=request.headers,
+                    cookies=request.cookies,
+                    stream=True
+                )
+                return self.forward(StreamResponse(response))
             elif request.method == "POST":
-                return self.forward(StreamResponse(requests.post(target_url, headers=request.headers, data=request.data, stream=True)))  # noqa:E501
+                response = requests.post(
+                    url=target_url,
+                    data=request.data,
+                    headers=request.headers,
+                    cookies=request.cookies,
+                    stream=True
+                )
+                return self.forward(StreamResponse(response))
             return Response("Method Not Allowed", status=405)
         except requests.ConnectionError:
             return Response("Bad Gateway", status=502)
