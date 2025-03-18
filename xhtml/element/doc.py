@@ -9,7 +9,7 @@ class HtmlDoc(Html):
         super().__init__()
 
     def __str__(self) -> str:
-        return f"<!DOCTYPE {self.__doctype}>\n{super().__str__()}"
+        return f"<!DOCTYPE {self.doctype}>\n{super().__str__()}"
 
     @property
     def doctype(self) -> str:
