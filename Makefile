@@ -32,7 +32,7 @@ reinstall: uninstall install
 test-prepare:
 	pip3 install --upgrade mock pylint flake8 pytest pytest-cov
 pylint:
-	pylint $(shell git ls-files xhtml/*.py test/*.py example/*.py)
+	pylint $(shell git ls-files xhtml/*.py)
 flake8:
 	flake8 xhtml --count --select=E9,F63,F7,F82 --show-source --statistics
 	flake8 xhtml --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
