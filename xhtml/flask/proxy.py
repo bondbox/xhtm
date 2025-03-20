@@ -1,5 +1,6 @@
 # coding:utf-8
 
+from typing import Dict
 from urllib.parse import urljoin
 
 from flask import Request
@@ -11,9 +12,25 @@ from xhtml.request import StreamResponse
 
 
 class FlaskProxy():
-    EXCLUDED_HEADERS = ["content-encoding", "content-length", "transfer-encoding", "connection"]  # noqa:E501
 
-    def __init__(self, target: str) -> None:  # noqa:E501
+    EXCLUDED_REQUEST_HEADERS = [
+        "connection",
+        "content-length",
+        "host",
+        "keep-alive",
+        "proxy-authorization",
+        "transfer-encoding",
+        "via",
+    ]
+
+    EXCLUDED_RESPONSE_HEADERS = [
+        "connection",
+        "content-encoding",
+        "content-length",
+        "transfer-encoding",
+    ]
+
+    def __init__(self, target: str) -> None:
         self.__target: str = target
 
     @property
@@ -24,8 +41,12 @@ class FlaskProxy():
         return urljoin(base=self.target, url=path)
 
     @classmethod
+    def headers(cls, request: Request) -> Dict[str, str]:
+        return {k: v for k, v in request.headers.items() if k.lower() not in cls.EXCLUDED_REQUEST_HEADERS}  # noqa:E501
+
+    @classmethod
     def forward(cls, sr: StreamResponse) -> Response:
-        headers = [(k, v) for k, v in sr.response.raw.headers.items() if k.lower() not in cls.EXCLUDED_HEADERS]  # noqa:E501
+        headers = [(k, v) for k, v in sr.response.raw.headers.items() if k.lower() not in cls.EXCLUDED_RESPONSE_HEADERS]  # noqa:E501
         response = Response(stream_with_context(sr.generator), sr.response.status_code, headers)  # noqa:E501
         for cookie in sr.response.cookies:
             response.set_cookie(
@@ -45,7 +66,7 @@ class FlaskProxy():
                 response = requests.get(
                     url=target_url,
                     data=request.data,
-                    headers=request.headers,
+                    headers=self.headers(request),
                     cookies=request.cookies,
                     stream=True
                 )
@@ -54,7 +75,7 @@ class FlaskProxy():
                 response = requests.post(
                     url=target_url,
                     data=request.data,
-                    headers=request.headers,
+                    headers=self.headers(request),
                     cookies=request.cookies,
                     stream=True
                 )
