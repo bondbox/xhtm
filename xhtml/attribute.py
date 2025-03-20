@@ -3,7 +3,7 @@
 from urllib.parse import urljoin
 
 __project__ = "xhtm"
-__version__ = "0.3.0"
+__version__ = "0.3.1"
 __description__ = "Rendering HTML Text"
 __urlhome__ = "https://github.com/bondbox/xhtm"
 __urlcode__ = __urlhome__
