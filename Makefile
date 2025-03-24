@@ -1,6 +1,13 @@
 MAKEFLAGS += --always-make
 
-all: build install test
+VERSION := $(shell python3 -c "from xhtml.attribute import __version__; print(__version__)")
+
+all: build reinstall test
+
+
+release: all
+	git tag -a v${VERSION} -m "release v${VERSION}"
+	git push origin --tags
 
 
 clean-cover:
