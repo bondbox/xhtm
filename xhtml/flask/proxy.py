@@ -6,7 +6,8 @@ from urllib.parse import urljoin
 from flask import Request
 from flask import Response
 from flask import stream_with_context
-import requests
+from requests import ConnectionError
+from requests import Session
 
 from xhtml.request import StreamResponse
 
@@ -31,7 +32,12 @@ class FlaskProxy():
     ]
 
     def __init__(self, target: str) -> None:
+        # self.__session: Session = Session()
         self.__target: str = target
+
+    @property
+    def session(self) -> Session:
+        return Session()
 
     @property
     def target(self) -> str:
@@ -63,7 +69,7 @@ class FlaskProxy():
         try:
             target_url: str = self.urljoin(request.path.lstrip("/"))
             if request.method == "GET":
-                response = requests.get(
+                response = self.session.get(
                     url=target_url,
                     data=request.data,
                     headers=self.headers(request),
@@ -72,7 +78,7 @@ class FlaskProxy():
                 )
                 return self.forward(StreamResponse(response))
             elif request.method == "POST":
-                response = requests.post(
+                response = self.session.post(
                     url=target_url,
                     data=request.data,
                     headers=self.headers(request),
@@ -81,5 +87,5 @@ class FlaskProxy():
                 )
                 return self.forward(StreamResponse(response))
             return Response("Method Not Allowed", status=405)
-        except requests.ConnectionError:
+        except ConnectionError:
             return Response("Bad Gateway", status=502)
