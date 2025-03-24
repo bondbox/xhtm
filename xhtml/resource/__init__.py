@@ -8,6 +8,8 @@ from os.path import join
 from os.path import splitext
 from typing import Optional
 
+from jinja2 import Environment
+
 BASE_DIR = dirname(abspath(__file__))
 
 
@@ -34,6 +36,10 @@ class FileResource():
     def loadb(self) -> bytes:
         with open(self.path, "rb") as rhdl:
             return rhdl.read()
+
+    def render(self, **context: str) -> str:
+        """render html template"""
+        return Environment().from_string(self.loads()).render(**context)
 
 
 class Resource():
