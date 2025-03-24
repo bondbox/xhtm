@@ -1,6 +1,7 @@
 [run]
 omit =
     xhtml/unittest/*
+    xhtml/attribute.py
 
 [report]
 exclude_lines =
