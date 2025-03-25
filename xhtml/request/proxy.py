@@ -55,10 +55,8 @@ class RequestProxy():
     def filter_headers(cls, headers: MutableMapping[str, str]) -> Dict[str, str]:  # noqa:E501
         return {k: v for k, v in headers.items() if k.lower() not in cls.EXCLUDED_REQUEST_HEADERS}  # noqa:E501
 
-    def request(self, path: str, method: str,
-                data: Optional[bytes] = None,
-                headers: Optional[MutableMapping[str, str]] = None,
-                cookies: Optional[MutableMapping[str, str]] = None
+    def request(self, path: str, method: str, data: Optional[bytes] = None,
+                headers: Optional[MutableMapping[str, str]] = None
                 ) -> StreamResponse:
         target_url: str = self.urljoin(path.lstrip("/"))
         if method == "GET":
@@ -66,7 +64,6 @@ class RequestProxy():
                 url=target_url,
                 data=data,
                 headers=headers,
-                cookies=cookies,
                 stream=True
             )
             return StreamResponse(response)
@@ -75,7 +72,6 @@ class RequestProxy():
                 url=target_url,
                 data=data,
                 headers=headers,
-                cookies=cookies,
                 stream=True
             )
             return StreamResponse(response)

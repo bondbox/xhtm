@@ -36,8 +36,7 @@ class FlaskProxy(RequestProxy):
             response = super().request(path=request.path,
                                        method=request.method,
                                        data=request.data,
-                                       headers=headers,
-                                       cookies=request.cookies)
+                                       headers=headers)
             return self.forward(response)
         except MethodNotAllowed:
             return Response("Method Not Allowed", status=405)
