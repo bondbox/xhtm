@@ -41,15 +41,15 @@ class RequestProxy():
         "transfer-encoding",
     ]
 
-    def __init__(self, target: str) -> None:
-        self.__target: str = target
+    def __init__(self, target_url: str) -> None:
+        self.__target_url: str = target_url
 
     @property
-    def target(self) -> str:
-        return self.__target
+    def target_url(self) -> str:
+        return self.__target_url
 
     def urljoin(self, path: str) -> str:
-        return urljoin(base=self.target, url=path)
+        return urljoin(base=self.target_url, url=path)
 
     @classmethod
     def filter_headers(cls, headers: MutableMapping[str, str]) -> Dict[str, str]:  # noqa:E501
@@ -58,10 +58,10 @@ class RequestProxy():
     def request(self, path: str, method: str, data: Optional[bytes] = None,
                 headers: Optional[MutableMapping[str, str]] = None
                 ) -> StreamResponse:
-        target_url: str = self.urljoin(path.lstrip("/"))
+        url: str = self.urljoin(path.lstrip("/"))
         if method == "GET":
             response = get(
-                url=target_url,
+                url=url,
                 data=data,
                 headers=headers,
                 stream=True
@@ -69,7 +69,7 @@ class RequestProxy():
             return StreamResponse(response)
         if method == "POST":
             response = post(
-                url=target_url,
+                url=url,
                 data=data,
                 headers=headers,
                 stream=True
