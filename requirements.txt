@@ -1,4 +1,2 @@
 xlc >= 0.5.0
-requests
 jinja2
-flask

@@ -1,9 +1,9 @@
 # coding:utf-8
 
 import unittest
+from unittest import mock
 
-from xhtml.resource import FileResource
-from xhtml.resource import Resource
+from xhtml import resource
 
 
 class TestFileResource(unittest.TestCase):
@@ -23,14 +23,21 @@ class TestFileResource(unittest.TestCase):
         pass
 
     def test_file_not_found(self):
-        self.assertRaises(FileNotFoundError, FileResource, "test.txt")
+        self.assertRaises(FileNotFoundError, resource.FileResource, "test.txt")
+
+    @mock.patch.object(resource, "open")
+    @mock.patch.object(resource, "isfile")
+    def test_render(self, mock_isfile, mock_open):
+        mock_isfile.side_effect = [True]
+        with mock.mock_open(mock_open, read_data=""):
+            self.assertEqual(resource.FileResource("test.html").render(), "")
 
 
 class TestResource(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.res: Resource = Resource()
+        cls.res: resource.Resource = resource.Resource()
 
     @classmethod
     def tearDownClass(cls):
