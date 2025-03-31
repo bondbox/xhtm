@@ -1,5 +1,7 @@
 # coding=utf-8
 
+from urllib.parse import urljoin
+
 from setuptools import find_packages
 from setuptools import setup
 
@@ -7,11 +9,12 @@ from xhtml.attribute import __author__
 from xhtml.attribute import __author_email__
 from xhtml.attribute import __description__
 from xhtml.attribute import __project__
-from xhtml.attribute import __urlbugs__
-from xhtml.attribute import __urlcode__
-from xhtml.attribute import __urldocs__
 from xhtml.attribute import __urlhome__
 from xhtml.attribute import __version__
+
+__urlcode__ = __urlhome__
+__urldocs__ = __urlhome__
+__urlbugs__ = urljoin(__urlhome__, "issues")
 
 
 def all_requirements():
@@ -33,7 +36,7 @@ setup(
     project_urls={"Source Code": __urlcode__,
                   "Bug Tracker": __urlbugs__,
                   "Documentation": __urldocs__},
-    packages=find_packages(include=["xhtml*"], exclude=["unittest"]),
+    packages=find_packages(include=["xhtml*"], exclude=["xhtml.unittest"]),  # noqa:E501
     package_data={"xhtml.resource": ["*.ico", "*.svg"],
                   "xhtml.template": ["*.html"]},
     install_requires=all_requirements())
