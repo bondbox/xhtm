@@ -2,6 +2,7 @@
 
 from xhtml.element import *  # noqa:F401,F403
 from xhtml.header import AcceptLanguage  # noqa:F401
+from xhtml.header import Headers  # noqa:F401
 from xhtml.header import LanguageQ  # noqa:F401
 from xhtml.resource import FileResource  # noqa:F401
 from xhtml.resource import Resource  # noqa:F401
