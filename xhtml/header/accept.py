@@ -5,8 +5,7 @@ from typing import Iterator
 from typing import List
 from typing import Union
 
-from xlc import LANGUAGES
-from xlc import LangT  # noqa:H306
+from xlc import LangT
 from xlc import LangTag
 from xlc import Message
 from xlc import Segment
@@ -15,17 +14,17 @@ from xlc import Segment
 class LanguageQ():
     def __init__(self, language: Union[Iterable[str], str], q: Union[float, str]) -> None:  # noqa:E501
         languages: List[str] = language.split(",") if isinstance(language, str) else [lang for lang in language]  # noqa:E501
-        self.__languages: List[LangTag] = [LANGUAGES[language] for language in languages]  # noqa:E501
+        self.__languages: List[str] = [LangTag.get_name(language) for language in languages]  # noqa:E501
         self.__quality: float = float(q)
 
     def __str__(self) -> str:
-        language: str = ",".join(langtag.name for langtag in self)
+        language: str = ",".join(self.__languages)
         return f"{language};q={self.quality}"
 
     def __len__(self) -> int:
         return len(self.__languages)
 
-    def __iter__(self) -> Iterator[LangTag]:
+    def __iter__(self) -> Iterator[str]:
         return iter(self.__languages)
 
     @property
@@ -37,10 +36,10 @@ class AcceptLanguage():
 
     def __init__(self, language: str) -> None:
         self.__languageq: List[LanguageQ] = self.parse(language)
-        self.__languages: List[LangTag] = [langtag for languageq in self.__languageq for langtag in languageq]  # noqa:E501
+        self.__languages: List[str] = [langtag for languageq in self.__languageq for langtag in languageq]  # noqa:E501
 
     def __contains__(self, langtag: LangT) -> bool:
-        return LANGUAGES.lookup(langtag) in self.__languages
+        return LangTag.get_name(langtag) in self.__languages
 
     def __iter__(self) -> Iterator[LangTag]:
         return iter(self.__languages)

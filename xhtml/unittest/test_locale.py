@@ -3,7 +3,7 @@
 import os
 import unittest
 
-from xhtml.template import LocaleTemplate
+from xhtml.locale.template import LocaleTemplate
 
 
 class TestLocaleTemplate(unittest.TestCase):
@@ -24,9 +24,9 @@ class TestLocaleTemplate(unittest.TestCase):
         pass
 
     def test_search(self):
-        self.assertEqual(self.template.search("zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6", "login").lang.tag, "zh-Hans")  # noqa:E501
-        self.assertEqual(self.template.search("en", "login").lang.tag, "en")
-        self.assertEqual(self.template.search("fr", "login").lang.tag, "en")
+        self.assertEqual(self.template.search("zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6", "login").lang.name, "zh-Hans")  # noqa:E501
+        self.assertEqual(self.template.search("en", "login").lang.name, "en")
+        self.assertEqual(self.template.search("fr", "login").lang.name, "en")
 
 
 if __name__ == "__main__":
