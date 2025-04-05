@@ -4,6 +4,7 @@ import unittest
 
 from xhtml.header.accept import AcceptLanguage
 from xhtml.header.accept import LanguageQ
+from xhtml.header.headers import Headers  # noqa:F401
 
 
 class TestLanguageQ(unittest.TestCase):

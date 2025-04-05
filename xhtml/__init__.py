@@ -1,9 +1,0 @@
-# coding:utf-8
-
-from xhtml.header import AcceptLanguage  # noqa:F401
-from xhtml.header import Headers  # noqa:F401
-from xhtml.header import LanguageQ  # noqa:F401
-from xhtml.locale import LocaleTemplate  # noqa:F401
-from xhtml.resource import FileResource  # noqa:F401
-from xhtml.resource import Resource  # noqa:F401
-from xhtml.template import Template  # noqa:F401

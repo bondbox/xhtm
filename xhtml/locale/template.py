@@ -5,7 +5,7 @@ from os.path import join
 from xlc.language.message import Message
 from xlc.language.segment import Section
 
-from xhtml.header import AcceptLanguage
+from xhtml.header.accept import AcceptLanguage
 from xhtml.template import Template
 
 
