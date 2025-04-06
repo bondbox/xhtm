@@ -4,7 +4,38 @@ import unittest
 
 from xhtml.header.accept import AcceptLanguage
 from xhtml.header.accept import LanguageQ
-from xhtml.header.headers import Headers  # noqa:F401
+from xhtml.header.headers import Cookies
+
+
+class TestCookies(unittest.TestCase):
+
+    @classmethod
+    def setUpClass(cls):
+        cls.cookies = Cookies("ID=5D43B5D:FG=1; Domain=example.com; Path=/")
+
+    @classmethod
+    def tearDownClass(cls):
+        pass
+
+    def setUp(self):
+        pass
+
+    def tearDown(self):
+        pass
+
+    def test_len(self):
+        self.assertEqual(len(self.cookies), 3)
+
+    def test_iter(self):
+        for cookie in self.cookies:
+            self.assertIsInstance(cookie, str)
+            self.assertIn(cookie, self.cookies)
+
+    def test_get(self):
+        self.assertEqual(self.cookies.get("ID"), "5D43B5D:FG=1")
+        self.assertEqual(self.cookies["Domain"], "example.com")
+        self.assertEqual(self.cookies["Path"], "/")
+        self.assertEqual(self.cookies.get("Test"), "")
 
 
 class TestLanguageQ(unittest.TestCase):
