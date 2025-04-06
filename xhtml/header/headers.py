@@ -44,6 +44,7 @@ class Headers(Enum):
     IF_NONE_MATCH = "If-None-Match"
     IF_RANGE = "If-Range"
     IF_UNMODIFIED_SINCE = "If-Unmodified-Since"
+    KEEP_ALIVE = "Keep-Alive"
     LAST_MODIFIED = "Last-Modified"
     LOCATION = "Location"
     MAX_FORWARDS = "Max-Forwards"
