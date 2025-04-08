@@ -72,10 +72,11 @@ class Headers(Enum):
 class Cookies():
     def __init__(self, *cookies: str):
         self.__cookies: Dict[str, str] = {}
-        for item in cookies:
-            for cookie in item.split(";"):
-                k, v = cookie.split("=", maxsplit=1)
-                self.__cookies[k.strip()] = v.strip()
+        for items in cookies:
+            for item in items.split(";"):
+                if cookie := item.strip():
+                    k, v = cookie.split("=", maxsplit=1)
+                    self.__cookies[k.strip()] = v.strip()
 
     def __len__(self) -> int:
         return len(self.__cookies)
