@@ -41,7 +41,7 @@ class AcceptLanguage():
     def __contains__(self, langtag: LangT) -> bool:
         return LangTag.get_name(langtag) in self.__languages
 
-    def __iter__(self) -> Iterator[LangTag]:
+    def __iter__(self) -> Iterator[str]:
         return iter(self.__languages)
 
     def __len__(self) -> int:
