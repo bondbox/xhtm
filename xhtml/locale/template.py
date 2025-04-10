@@ -11,7 +11,7 @@ from xhtml.template import Template
 
 class LocaleTemplate(Template):
     def __init__(self, base: str):
-        self.__message: Message = Message.load(join(base, "locale"))
+        self.__message: Message = Message(join(base, "locale"))
         super().__init__(base)
 
     def search(self, accept_language: str, section: str) -> Section:
