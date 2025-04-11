@@ -9,6 +9,9 @@ from os.path import splitext
 from typing import Optional
 
 from jinja2 import Environment
+from xkits_lib import CacheMiss
+from xkits_lib import CachePool
+from xkits_lib import TimeUnit
 
 BASE_DIR = dirname(abspath(__file__))
 
@@ -47,7 +50,8 @@ class FileResource():
 class Resource():
     FAVICON: str = "favicon.ico"
 
-    def __init__(self, base: Optional[str] = None):
+    def __init__(self, base: Optional[str] = None, lifetime: TimeUnit = 0):
+        self.__cache: CachePool[str, FileResource] = CachePool(lifetime)
         self.__base: str = base if base and isdir(base) else BASE_DIR
 
     @property
@@ -58,13 +62,23 @@ class Resource():
     def favicon(self) -> FileResource:
         return self.seek(self.FAVICON)
 
-    def find(self, *args: str) -> Optional[str]:
+    def find(self, *args: str) -> Optional[FileResource]:
         def check(base: str, real: str) -> Optional[str]:
             return path if isfile(path := join(base, real)) else check(BASE_DIR, real) if base != BASE_DIR else None  # noqa:E501
-        return check(self.base, join(*args))
+
+        if (real := join(*args)) in self.__cache:
+            try:
+                return self.__cache.get(real)
+            except CacheMiss:
+                pass
+
+        resource: Optional[FileResource] = None
+        if isinstance(path := check(self.base, real), str):
+            resource = FileResource(path)
+            self.__cache.put(real, resource)
+        return resource
 
     def seek(self, *args: str) -> FileResource:
-        path: Optional[str] = self.find(*args)
-        if not isinstance(path, str):
+        if not isinstance(resource := self.find(*args), FileResource):
             raise FileNotFoundError(f"No such file: {join(*args)}")
-        return FileResource(path)
+        return resource

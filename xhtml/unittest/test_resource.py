@@ -49,6 +49,13 @@ class TestResource(unittest.TestCase):
     def tearDown(self):
         pass
 
+    def test_find(self):
+        self.assertIsInstance(self.res.find(resource.Resource.FAVICON), resource.FileResource)  # noqa:E501
+        with mock.patch.object(getattr(self.res, "_Resource__cache"), "get") as mock_get:  # noqa:E501
+            mock_get.side_effect = [resource.CacheMiss("test")]
+            self.assertIsInstance(self.res.find(resource.Resource.FAVICON), resource.FileResource)  # noqa:E501
+        self.assertIsNone(self.res.find("test.txt"))
+
     def test_favicon(self):
         self.assertIsInstance(self.res.favicon.loadb(), bytes)
 
