@@ -19,6 +19,7 @@ class FileResource():
             message = f"No such file: {path}"
             raise FileNotFoundError(message)
         self.__ext: str = splitext(path)[1]
+        self.__data: Optional[bytes] = None
         self.__path: str = path
 
     @property
@@ -29,13 +30,14 @@ class FileResource():
     def path(self) -> str:
         return self.__path
 
-    def loads(self) -> str:
-        with open(self.path, "r", encoding="utf-8") as rhdl:
-            return rhdl.read()
-
     def loadb(self) -> bytes:
-        with open(self.path, "rb") as rhdl:
-            return rhdl.read()
+        if self.__data is None:
+            with open(self.path, "rb") as rhdl:
+                self.__data = rhdl.read()
+        return self.__data
+
+    def loads(self, encoding: str = "utf-8") -> str:
+        return self.loadb().decode(encoding=encoding)
 
     def render(self, **context: str) -> str:
         """render html template"""

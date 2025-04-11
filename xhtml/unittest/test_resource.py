@@ -29,7 +29,7 @@ class TestFileResource(unittest.TestCase):
     @mock.patch.object(resource, "isfile")
     def test_render(self, mock_isfile, mock_open):
         mock_isfile.side_effect = [True]
-        with mock.mock_open(mock_open, read_data=""):
+        with mock.mock_open(mock_open, read_data=b""):
             self.assertEqual(resource.FileResource("test.html").render(), "")
 
 
