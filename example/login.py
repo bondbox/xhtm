@@ -5,12 +5,11 @@ from flask import redirect
 from flask import request
 from flask import session
 
-from xhtml import Br
-from xhtml import Div
-from xhtml import Form
-from xhtml import HtmlDoc
-from xhtml import Input
-from xhtml import Span
+from xhtml.element import Div
+from xhtml.element import Form
+from xhtml.element import HtmlDoc
+from xhtml.element import Input
+from xhtml.element import Span
 
 USERNAME = "admin"
 PASSWORD = "secret"
