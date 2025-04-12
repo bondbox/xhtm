@@ -5,6 +5,37 @@ import unittest
 from xhtml.header.accept import AcceptLanguage
 from xhtml.header.accept import LanguageQ
 from xhtml.header.headers import Cookies
+from xhtml.header.headers import RequestLine
+from xhtml.header.headers import StatusLine
+
+
+class TestHeader(unittest.TestCase):
+
+    @classmethod
+    def setUpClass(cls):
+        pass
+
+    @classmethod
+    def tearDownClass(cls):
+        pass
+
+    def setUp(self):
+        pass
+
+    def tearDown(self):
+        pass
+
+    def test_request_line(self):
+        request_line = RequestLine("POST / HTTP/1.1")
+        self.assertEqual(request_line.protocol, "HTTP/1.1")
+        self.assertEqual(request_line.method, "POST")
+        self.assertEqual(request_line.target, "/")
+
+    def test_status_line(self):
+        status_line = StatusLine("HTTP/1.1 200 OK")
+        self.assertEqual(status_line.protocol, "HTTP/1.1")
+        self.assertEqual(status_line.status_code, 200)
+        self.assertEqual(status_line.status_text, "OK")
 
 
 class TestCookies(unittest.TestCase):

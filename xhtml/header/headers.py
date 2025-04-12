@@ -5,6 +5,58 @@ from typing import Dict
 from typing import Iterator
 
 
+class RequestLine():
+    """HTTP requests
+
+    Reference:
+        https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Messages#http_requests
+    """
+
+    def __init__(self, request_line: str):
+        method, target, protocol = request_line.split()
+        self.__protocol: str = protocol.strip()
+        self.__method: str = method.strip()
+        self.__target: str = target.strip()
+
+    @property
+    def protocol(self) -> str:
+        return self.__protocol
+
+    @property
+    def method(self) -> str:
+        return self.__method
+
+    @property
+    def target(self) -> str:
+        return self.__target
+
+
+class StatusLine():
+    """HTTP responses
+
+    Reference:
+        https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Messages#http_responses
+    """
+
+    def __init__(self, status_line: str):
+        protocol, status_code, status_text = status_line.split(maxsplit=2)
+        self.__status_code: int = int(status_code.strip())
+        self.__status_text: str = status_text.strip()
+        self.__protocol: str = protocol.strip()
+
+    @property
+    def protocol(self) -> str:
+        return self.__protocol
+
+    @property
+    def status_code(self) -> int:
+        return self.__status_code
+
+    @property
+    def status_text(self) -> str:
+        return self.__status_text
+
+
 class Headers(Enum):
     """HTTP headers
 
