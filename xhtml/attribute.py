@@ -1,7 +1,7 @@
 # coding:utf-8
 
 __project__ = "xhtm"
-__version__ = "0.8"
+__version__ = "0.9"
 __urlhome__ = "https://github.com/bondbox/xhtm"
 __description__ = "Rendering HTML Text"
 
