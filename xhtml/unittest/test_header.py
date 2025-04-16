@@ -4,6 +4,7 @@ import unittest
 
 from xhtml.header.accept import AcceptLanguage
 from xhtml.header.accept import LanguageQ
+from xhtml.header.authorization import Authorization
 from xhtml.header.cookie import Cookies
 from xhtml.header.headers import RequestLine
 from xhtml.header.headers import StatusLine
@@ -36,6 +37,45 @@ class TestHeader(unittest.TestCase):
         self.assertEqual(status_line.protocol, "HTTP/1.1")
         self.assertEqual(status_line.status_code, 200)
         self.assertEqual(status_line.status_text, "OK")
+
+
+class TestAuthorization(unittest.TestCase):
+
+    @classmethod
+    def setUpClass(cls):
+        pass
+
+    @classmethod
+    def tearDownClass(cls):
+        pass
+
+    def setUp(self):
+        pass
+
+    def tearDown(self):
+        pass
+
+    def test_basic(self):
+        auth = Authorization.paser("Basic ZGVtbzp0ZXN0")
+        self.assertIsInstance(auth, Authorization.Basic)
+        self.assertEqual(auth.type, Authorization.Basic.TYPE)
+        assert isinstance(auth, Authorization.Basic)
+        self.assertEqual(auth.username, "demo")
+        self.assertEqual(auth.password, "test")
+
+    def test_bearer(self):
+        auth = Authorization.paser("Bearer test")
+        self.assertIsInstance(auth, Authorization.Bearer)
+        self.assertEqual(auth.type, Authorization.Bearer.TYPE)
+        assert isinstance(auth, Authorization.Bearer)
+        self.assertEqual(auth.token, "test")
+
+    def test_api_key(self):
+        auth = Authorization.paser("ApiKey test")
+        self.assertIsInstance(auth, Authorization.APIKey)
+        self.assertEqual(auth.type, Authorization.APIKey.TYPE)
+        assert isinstance(auth, Authorization.APIKey)
+        self.assertEqual(auth.key, "test")
 
 
 class TestCookies(unittest.TestCase):
