@@ -4,7 +4,7 @@ import unittest
 
 from xhtml.header.accept import AcceptLanguage
 from xhtml.header.accept import LanguageQ
-from xhtml.header.headers import Cookies
+from xhtml.header.cookie import Cookies
 from xhtml.header.headers import RequestLine
 from xhtml.header.headers import StatusLine
 
