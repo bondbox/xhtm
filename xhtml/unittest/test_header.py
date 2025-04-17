@@ -60,22 +60,24 @@ class TestAuthorization(unittest.TestCase):
         self.assertIsInstance(auth, Authorization.Basic)
         self.assertEqual(auth.type, Authorization.Basic.TYPE)
         assert isinstance(auth, Authorization.Basic)
-        self.assertEqual(auth.username, "demo")
         self.assertEqual(auth.password, "test")
+        self.assertEqual(auth.username, "demo")
 
     def test_bearer(self):
         auth = Authorization.paser("Bearer test")
         self.assertIsInstance(auth, Authorization.Bearer)
         self.assertEqual(auth.type, Authorization.Bearer.TYPE)
         assert isinstance(auth, Authorization.Bearer)
-        self.assertEqual(auth.token, "test")
+        self.assertEqual(auth.password, "test")
+        self.assertEqual(auth.username, "")
 
     def test_api_key(self):
         auth = Authorization.paser("ApiKey test")
         self.assertIsInstance(auth, Authorization.APIKey)
         self.assertEqual(auth.type, Authorization.APIKey.TYPE)
         assert isinstance(auth, Authorization.APIKey)
-        self.assertEqual(auth.key, "test")
+        self.assertEqual(auth.password, "test")
+        self.assertEqual(auth.username, "")
 
 
 class TestCookies(unittest.TestCase):

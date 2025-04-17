@@ -6,8 +6,16 @@ class Authorization():
             self.__type: str = type
 
         @property
-        def type(self):
+        def type(self) -> str:
             return self.__type
+
+        @property
+        def username(self) -> str:
+            return ""
+
+        @property
+        def password(self) -> str:
+            raise NotImplementedError
 
     class Basic(Auth):
         TYPE: str = "Basic"
@@ -22,11 +30,11 @@ class Authorization():
             super().__init__(self.TYPE)
 
         @property
-        def username(self):
+        def username(self) -> str:
             return self.__username
 
         @property
-        def password(self):
+        def password(self) -> str:
             return self.__password
 
     class Bearer(Auth):
@@ -40,6 +48,10 @@ class Authorization():
         def token(self):
             return self.__token
 
+        @property
+        def password(self) -> str:
+            return self.token
+
     class APIKey(Auth):
         TYPE: str = "ApiKey"
 
@@ -50,6 +62,10 @@ class Authorization():
         @property
         def key(self):
             return self.__key
+
+        @property
+        def password(self) -> str:
+            return self.key
 
     @classmethod
     def paser(cls, authorization: str) -> Auth:
