@@ -12,7 +12,7 @@ from xhtml.template import Template
 
 class LocaleTemplate(Template):
     def __init__(self, base: str, lifetime: TimeUnit = 0):
-        self.__message: Message = Message(join(base, "locale"))
+        self.__message: Message = Message(join(base, "translate"))
         super().__init__(base=base, lifetime=lifetime)
 
     def search(self, accept_language: str, section: str) -> Section:
