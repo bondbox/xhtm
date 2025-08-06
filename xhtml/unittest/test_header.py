@@ -84,7 +84,7 @@ class TestCookies(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.cookies = Cookies("ID=5D43B5D:FG=1; Domain=example.com; Path=/")
+        cls.cookies = Cookies("ID=5D43B5D:FG=1; Domain=example.com; Path=/; A= 1 ; B= 2; C=3 ")  # noqa:E501
 
     @classmethod
     def tearDownClass(cls):
@@ -97,7 +97,8 @@ class TestCookies(unittest.TestCase):
         pass
 
     def test_len(self):
-        self.assertEqual(len(self.cookies), 3)
+        self.assertEqual(len(self.cookies), 6)
+        self.assertEqual(len(Cookies("")), 0)
 
     def test_iter(self):
         for cookie in self.cookies:
@@ -108,6 +109,9 @@ class TestCookies(unittest.TestCase):
         self.assertEqual(self.cookies.get("ID"), "5D43B5D:FG=1")
         self.assertEqual(self.cookies["Domain"], "example.com")
         self.assertEqual(self.cookies["Path"], "/")
+        self.assertEqual(self.cookies["A"], " 1 ")
+        self.assertEqual(self.cookies["B"], " 2")
+        self.assertEqual(self.cookies["C"], "3 ")
         self.assertEqual(self.cookies.get("Test"), "")
 
 

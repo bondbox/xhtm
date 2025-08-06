@@ -7,11 +7,10 @@ from typing import Iterator
 class Cookies():
     def __init__(self, *cookies: str):
         self.__cookies: Dict[str, str] = {}
-        for items in cookies:
-            for item in items.split(";"):
-                if cookie := item.strip():
-                    k, v = cookie.split("=", maxsplit=1)
-                    self.__cookies[k.strip()] = v.strip()
+        for _cookies in cookies:
+            for _cookie in [_c for _c in _cookies.split("; ") if _c.strip()]:
+                k, v = _cookie.split("=", maxsplit=1)
+                self.__cookies[k] = v
 
     def __len__(self) -> int:
         return len(self.__cookies)
