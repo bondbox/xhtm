@@ -1,6 +1,13 @@
 # coding:utf-8
 
 from enum import Enum
+from typing import Dict
+from typing import Iterable
+from typing import Iterator
+from typing import List
+from typing import Optional
+from typing import Tuple
+from typing import overload
 
 
 class RequestLine():
@@ -129,3 +136,64 @@ class Headers(Enum):
     @property
     def http2(self):
         return self.value.lower()
+
+
+class HeaderMapping():
+
+    def __init__(self, headers: Iterable[Tuple[str, str]] = []) -> None:
+        self.__headers: Dict[str, str] = {k.lower(): v for k, v in headers}
+
+    def __len__(self) -> int:
+        return len(self.__headers)
+
+    def __iter__(self) -> Iterator[Tuple[str, str]]:
+        return iter(self.__headers.items())
+
+    def __getitem__(self, key: str) -> str:
+        return self.__headers[key.lower()]
+
+    def __setitem__(self, key: str, value: str) -> None:
+        self.__headers[key.lower()] = value
+
+    def __contains__(self, key: str) -> bool:
+        return key.lower() in self.__headers
+
+    @overload
+    def get(self, key: str) -> Optional[str]:
+        ...  # pragma: no cover
+
+    @overload
+    def get(self, key: str, default: str) -> str:
+        ...  # pragma: no cover
+
+    def get(self, key: str, default: Optional[str] = None) -> Optional[str]:
+        return self.__headers.get(key.lower(), default)
+
+    @classmethod
+    def parse(cls, headers: Iterable[str]) -> "HeaderMapping":
+        return cls([
+            (k.strip(), v.strip()) for header in headers
+            for k, v in [header.split(":", maxsplit=1)]
+        ])
+
+
+class HeaderSequence():
+
+    def __init__(self, headers: Iterable[Tuple[str, str]] = []) -> None:
+        self.__headers: List[Tuple[str, str]] = [(k.lower(), v) for k, v in headers]  # noqa:E501
+
+    def __len__(self) -> int:
+        return len(self.__headers)
+
+    def __iter__(self) -> Iterator[Tuple[str, str]]:
+        return iter(self.__headers)
+
+    def add(self, key: str, value: str) -> None:
+        self.__headers.append((key.lower(), value))
+
+    @classmethod
+    def parse(cls, headers: Iterable[str]) -> "HeaderSequence":
+        return cls([
+            (k.strip(), v.strip()) for header in headers
+            for k, v in [header.split(":", maxsplit=1)]
+        ])

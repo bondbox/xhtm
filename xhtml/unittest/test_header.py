@@ -6,6 +6,8 @@ from xhtml.header.accept import AcceptLanguage
 from xhtml.header.accept import LanguageQ
 from xhtml.header.authorization import Authorization
 from xhtml.header.cookie import Cookies
+from xhtml.header.headers import HeaderMapping
+from xhtml.header.headers import HeaderSequence
 from xhtml.header.headers import Headers
 from xhtml.header.headers import RequestLine
 from xhtml.header.headers import StatusLine
@@ -39,9 +41,32 @@ class TestHeader(unittest.TestCase):
         self.assertEqual(status_line.status_code, 200)
         self.assertEqual(status_line.status_text, "OK")
 
-    def test_http2(self):
-        for member in Headers:
-            self.assertEqual(member.value.lower(), member.http2)
+    def test_header_mapping(self):
+        headers = HeaderMapping.parse([f"{Headers.ACCEPT.value}: text/html"])
+        self.assertEqual(headers.get(Headers.ACCEPT.value), "text/html")
+        self.assertEqual(headers.get(Headers.ACCEPT.http2), "text/html")
+        self.assertEqual(len(headers), 1)
+
+        for header in Headers:
+            headers[header.value] = header.name
+
+        self.assertEqual(len(headers), 56)
+
+        for k, v in headers:
+            self.assertIn(k, headers)
+            self.assertEqual(headers[k], v)
+
+    def test_header_sequence(self):
+        headers = HeaderSequence.parse([f"{Headers.ACCEPT.value}: ACCEPT"])
+        self.assertEqual(len(headers), 1)
+
+        for header in Headers:
+            headers.add(header.value, header.name)
+
+        self.assertEqual(len(headers), 57)
+
+        for k, v in headers:
+            self.assertEqual(k.upper(), v.replace("_", "-"))
 
 
 class TestAuthorization(unittest.TestCase):
