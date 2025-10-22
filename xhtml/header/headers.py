@@ -60,6 +60,14 @@ class Headers(Enum):
 
     Reference:
         https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers
+
+    In HTTP/1.X, a header is a case-insensitive name followed by
+    a colon, then optional whitespace which will be ignored, and
+    finally by its value (for example: Allow: POST).
+
+    In HTTP/2 and above, headers are displayed in lowercase when
+    viewed in developer tools (accept: */*), and prefixed with a
+    colon for a special group of pseudo-headers (:status: 200).
     """
     ACCEPT = "Accept"
     ACCEPT_ENCODING = "Accept-Encoding"
@@ -117,3 +125,7 @@ class Headers(Enum):
     VARY = "Vary"
     VIA = "Via"
     WARNING = "Warning"
+
+    @property
+    def http2(self):
+        return self.value.lower()

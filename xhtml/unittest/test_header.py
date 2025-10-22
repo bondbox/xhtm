@@ -6,6 +6,7 @@ from xhtml.header.accept import AcceptLanguage
 from xhtml.header.accept import LanguageQ
 from xhtml.header.authorization import Authorization
 from xhtml.header.cookie import Cookies
+from xhtml.header.headers import Headers
 from xhtml.header.headers import RequestLine
 from xhtml.header.headers import StatusLine
 
@@ -37,6 +38,10 @@ class TestHeader(unittest.TestCase):
         self.assertEqual(status_line.protocol, "HTTP/1.1")
         self.assertEqual(status_line.status_code, 200)
         self.assertEqual(status_line.status_text, "OK")
+
+    def test_http2(self):
+        for member in Headers:
+            self.assertEqual(member.value.lower(), member.http2)
 
 
 class TestAuthorization(unittest.TestCase):
