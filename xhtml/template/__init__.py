@@ -5,7 +5,7 @@ from os.path import dirname
 from os.path import isdir
 from typing import Optional
 
-from xkits_lib import TimeUnit
+from xkits_lib.unit import TimeUnit
 
 from xhtml.resource import Resource
 

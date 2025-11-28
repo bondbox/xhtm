@@ -9,9 +9,9 @@ from os.path import splitext
 from typing import Optional
 
 from jinja2 import Environment
-from xkits_lib import CacheMiss
-from xkits_lib import CachePool
-from xkits_lib import TimeUnit
+from xkits_lib.cache import CacheMiss
+from xkits_lib.cache import CachePool
+from xkits_lib.unit import TimeUnit
 
 BASE_DIR = dirname(abspath(__file__))
 

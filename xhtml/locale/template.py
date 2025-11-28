@@ -2,7 +2,7 @@
 
 from os.path import join
 
-from xkits_lib import TimeUnit
+from xkits_lib.unit import TimeUnit
 from xlc.language.message import Message
 from xlc.language.segment import Section
 
