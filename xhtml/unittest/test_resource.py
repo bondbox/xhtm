@@ -1,12 +1,13 @@
 # coding:utf-8
 
-import unittest
+from unittest import TestCase
+from unittest import main
 from unittest import mock
 
 from xhtml import resource
 
 
-class TestFileResource(unittest.TestCase):
+class TestFileResource(TestCase):
 
     @classmethod
     def setUpClass(cls):
@@ -33,7 +34,7 @@ class TestFileResource(unittest.TestCase):
             self.assertEqual(resource.FileResource("test.html").render(), "")
 
 
-class TestResource(unittest.TestCase):
+class TestResource(TestCase):
 
     @classmethod
     def setUpClass(cls):
@@ -70,4 +71,4 @@ class TestResource(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    unittest.main()
+    main()

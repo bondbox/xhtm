@@ -1,6 +1,7 @@
 # coding:utf-8
 
-import unittest
+from unittest import TestCase
+from unittest import main
 
 from xhtml.header.accept import AcceptLanguage
 from xhtml.header.accept import LanguageQ
@@ -13,7 +14,7 @@ from xhtml.header.headers import RequestLine
 from xhtml.header.headers import StatusLine
 
 
-class TestHeader(unittest.TestCase):
+class TestHeader(TestCase):
 
     @classmethod
     def setUpClass(cls):
@@ -69,7 +70,7 @@ class TestHeader(unittest.TestCase):
             self.assertEqual(k.upper(), v.replace("_", "-"))
 
 
-class TestAuthorization(unittest.TestCase):
+class TestAuthorization(TestCase):
 
     @classmethod
     def setUpClass(cls):
@@ -110,7 +111,7 @@ class TestAuthorization(unittest.TestCase):
         self.assertEqual(auth.username, "")
 
 
-class TestCookies(unittest.TestCase):
+class TestCookies(TestCase):
 
     @classmethod
     def setUpClass(cls):
@@ -145,7 +146,7 @@ class TestCookies(unittest.TestCase):
         self.assertEqual(self.cookies.get("Test"), "")
 
 
-class TestLanguageQ(unittest.TestCase):
+class TestLanguageQ(TestCase):
 
     @classmethod
     def setUpClass(cls):
@@ -168,7 +169,7 @@ class TestLanguageQ(unittest.TestCase):
         self.assertEqual(len(self.q), 2)
 
 
-class TestAcceptLanguage(unittest.TestCase):
+class TestAcceptLanguage(TestCase):
 
     @classmethod
     def setUpClass(cls):
@@ -194,4 +195,4 @@ class TestAcceptLanguage(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    unittest.main()
+    main()

@@ -1,6 +1,7 @@
 # coding:utf-8
 
-import unittest
+from unittest import TestCase
+from unittest import main
 
 from xhtml.element.doc import HtmlDoc
 from xhtml.element.tag import Br
@@ -10,7 +11,7 @@ from xhtml.element.tag import Input
 from xhtml.element.tag import Span
 
 
-class TestHtmlDoc(unittest.TestCase):
+class TestHtmlDoc(TestCase):
 
     @classmethod
     def setUpClass(cls):
@@ -105,4 +106,4 @@ class TestHtmlDoc(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    unittest.main()
+    main()

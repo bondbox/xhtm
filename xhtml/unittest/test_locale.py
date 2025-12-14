@@ -1,12 +1,13 @@
 # coding:utf-8
 
 import os
-import unittest
+from unittest import TestCase
+from unittest import main
 
 from xhtml.locale.template import LocaleTemplate
 
 
-class TestLocaleTemplate(unittest.TestCase):
+class TestLocaleTemplate(TestCase):
 
     @classmethod
     def setUpClass(cls):
@@ -30,4 +31,4 @@ class TestLocaleTemplate(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    unittest.main()
+    main()
