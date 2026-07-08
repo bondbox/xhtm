@@ -1,12 +1,16 @@
 [run]
-omit =
-    xhtml/unittest/*
-    xhtml/attribute.py
+omit = 
+	xhtml/attribute.py
+	xhtml/unittest/*
+source = 
+	xhtml
 
 [report]
-exclude_lines =
-    pragma: no cover
-    raise NotImplementedError
-    if __name__ == .__main__.:
-    def __repr__
-    pass
+exclude_lines = 
+	pragma: no cover
+	raise NotImplementedError
+	if __name__ == .__main__.:
+	def __repr__
+	pass
+fail_under = 100
+

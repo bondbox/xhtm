@@ -6,8 +6,8 @@ from typing import List
 from typing import Optional
 from typing import TypeVar
 
-from xhtml.attribute import __description__
-from xhtml.attribute import __project__
+from xhtml.attribute import __package_desc__
+from xhtml.attribute import __package_name__
 from xhtml.element.attr import Args
 from xhtml.element.attr import Arguments
 from xhtml.element.attr import Attr
@@ -281,7 +281,7 @@ class Head(Tag):
     T = "head"
 
     def __init__(self, attrs: Arguments = {}):
-        self.__title: Title = Title(f"{__description__} by {__project__}")
+        self.__title: Title = Title(f"{__package_desc__} by {__package_name__}")  # noqa:E501
         super().__init__(self.T, attrs=attrs, child=[self.__title])
 
     @property

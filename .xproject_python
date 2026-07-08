@@ -1,0 +1,39 @@
+name = "xhtm"
+home = "https://github.com/bondbox/xhtm/"
+description = "Rendering HTML Text"
+keywords = []
+version = "0.12.1"
+
+[authors.zoumingzhe]
+name = "Mingzhe Zou"
+email = "zoumingzhe@outlook.com"
+
+[packages.xhtm]
+requires_python = ">=3.8"
+authors = [
+    "zoumingzhe",
+]
+keywords = []
+requirements = [
+    "xkits-lib>=0.5",
+    "xlc>=1.2",
+    "jinja2",
+]
+build_backend = "hatchling"
+max_complexity = 10
+max_line_length = 127
+
+[packages.xhtm.modules.xhtml]
+base = "xhtml"
+exclude = [
+    "unittest",
+]
+omitted = [
+    "attribute.py",
+    "unittest/*",
+]
+
+[packages.xhtm.modules.xhtml.scripts]
+
+[packages.xhtm.modules.xhtml.templates]
+"attribute.py" = true

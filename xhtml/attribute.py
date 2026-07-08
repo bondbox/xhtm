@@ -1,10 +1,11 @@
 # coding:utf-8
 
-__project__ = "xhtm"
-__version__ = "0.12.1"
-__urlhome__ = "https://github.com/bondbox/xhtm"
-__description__ = "Rendering HTML Text"
+# project info
+__project_name__ = "xhtm"
+__project_home__ = "https://github.com/bondbox/xhtm/"
+__project_desc__ = "Rendering HTML Text"
 
-# author
-__author__ = "Mingzhe Zou"
-__author_email__ = "zoumingzhe@outlook.com"
+# package info
+__version__ = "0.12.1"
+__package_name__ = "xhtm"
+__package_desc__ = "Rendering HTML Text"
