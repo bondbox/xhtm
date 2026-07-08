@@ -1,5 +1,6 @@
 # coding:utf-8
 
+from pathlib import Path
 from unittest import TestCase
 from unittest import main
 from unittest import mock
@@ -26,12 +27,12 @@ class TestFileResource(TestCase):
     def test_file_not_found(self):
         self.assertRaises(FileNotFoundError, resource.FileResource, "test.txt")
 
-    @mock.patch.object(resource, "open")
-    @mock.patch.object(resource, "isfile")
-    def test_render(self, mock_isfile, mock_open):
-        mock_isfile.side_effect = [True]
+    @mock.patch.object(resource.Path, "open")
+    @mock.patch.object(resource.Path, "is_file")
+    def test_render(self, mock_is_file, mock_open):
+        mock_is_file.side_effect = [True]
         with mock.mock_open(mock_open, read_data=b""):
-            self.assertEqual(resource.FileResource("test.html").render(), "")
+            self.assertEqual(resource.FileResource(Path("test.html")).render(), "")  # noqa:E501
 
 
 class TestResource(TestCase):

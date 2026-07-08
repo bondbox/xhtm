@@ -1,6 +1,6 @@
 # coding:utf-8
 
-from os.path import join
+from pathlib import Path
 
 from xkits_lib.unit import TimeUnit
 from xlc.language.message import Message
@@ -11,8 +11,9 @@ from xhtml.template import Template
 
 
 class LocaleTemplate(Template):
-    def __init__(self, base: str, lifetime: TimeUnit = 0):
-        self.__message: Message = Message(join(base, "translate"))
+
+    def __init__(self, base: Path, lifetime: TimeUnit = 0):
+        self.__message: Message = Message(base / "translate")
         super().__init__(base=base, lifetime=lifetime)
 
     def search(self, accept_language: str, section: str) -> Section:

@@ -1,6 +1,6 @@
 # coding:utf-8
 
-import os
+from pathlib import Path
 from unittest import TestCase
 from unittest import main
 
@@ -11,7 +11,7 @@ class TestLocaleTemplate(TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.base: str = os.path.dirname(os.path.abspath(__file__))
+        cls.base: Path = Path(__file__).absolute().parent
         cls.template: LocaleTemplate = LocaleTemplate(cls.base)
 
     @classmethod
