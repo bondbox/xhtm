@@ -6,6 +6,6 @@ __project_home__ = "https://github.com/bondbox/xhtm/"
 __project_desc__ = "Rendering HTML Text"
 
 # package info
-__version__ = "0.12.1"
+__version__ = "0.13"
 __package_name__ = "xhtm"
 __package_desc__ = "Rendering HTML Text"

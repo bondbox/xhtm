@@ -2,7 +2,7 @@ name = "xhtm"
 home = "https://github.com/bondbox/xhtm/"
 description = "Rendering HTML Text"
 keywords = []
-version = "0.12.1"
+version = "0.13"
 
 [authors.zoumingzhe]
 name = "Mingzhe Zou"
